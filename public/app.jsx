@@ -1,8 +1,3 @@
-
-
-console.log('loaded');
-
-
 const counter = (state = 0, action) => {
   switch (action.type) {
     case 'INCREMENT':
@@ -13,7 +8,6 @@ const counter = (state = 0, action) => {
       return state;
   }
 }
-console.log('loaded');
 
 const Counter = ({
   value,
