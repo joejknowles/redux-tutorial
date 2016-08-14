@@ -11,7 +11,33 @@ const counter = (state = 0, action) => {
 
 document.write('<body></body>');
 
-const { createStore } = Redux;
+const createStore = (reducer) => {
+  let state;
+  let callbacks = [];
+
+  const getState = () => {
+    return state;
+  };
+
+  const dispatch = (action) => {
+    state = reducer(state, action);
+    callbacks.forEach((callback) => {
+      callback();
+    });
+  };
+
+  const subscribe = (callback) => {
+    callbacks.push(callback);
+    return () => {
+      callbacks.filter((current)=>{
+        return current !== callback
+      });
+    };
+  }
+
+  return { getState, dispatch, subscribe};
+}
+
 const store = createStore(counter);
 
 const render = () => {
