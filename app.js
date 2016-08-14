@@ -13,27 +13,23 @@ document.write('<body></body>');
 
 const createStore = (reducer) => {
   let state;
-  let callbacks = [];
+  let listeners = [];
 
-  const getState = () => {
-    return state;
-  };
+  const getState = () => state;
 
   const dispatch = (action) => {
     state = reducer(state, action);
-    callbacks.forEach((callback) => {
-      callback();
-    });
+    listeners.forEach((listener) => listener());
   };
 
-  const subscribe = (callback) => {
-    callbacks.push(callback);
+  const subscribe = (listener) => {
+    listeners.push(listener);
     return () => {
-      callbacks.filter((current)=>{
-        return current !== callback
-      });
+      listeners.filter((l)=> l !== listener);
     };
   }
+
+  dispatch({});
 
   return { getState, dispatch, subscribe};
 }
