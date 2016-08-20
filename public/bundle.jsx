@@ -139,53 +139,6 @@
 	  }
 	};
 
-	var testAddTodo = function testAddTodo() {
-	  var stateBefore = [];
-	  var stateAfter = [{
-	    id: 0,
-	    name: 'this needs doing',
-	    completed: false
-	  }];
-	  var action = {
-	    type: 'ADD_TODO',
-	    id: 0,
-	    name: 'this needs doing'
-	  };
-	  deepFreeze(stateBefore);
-	  expect(todos(stateBefore, action)).toEqual(stateAfter);
-	};
-
-	var testToggleTodos = function testToggleTodos() {
-	  var stateBefore = [{
-	    id: 0,
-	    name: 'this needs doing',
-	    completed: false
-	  }, {
-	    id: 1,
-	    name: 'this other thing needs doing',
-	    completed: false
-	  }];
-	  var stateAfter = [{
-	    id: 0,
-	    name: 'this needs doing',
-	    completed: false
-	  }, {
-	    id: 1,
-	    name: 'this other thing needs doing',
-	    completed: true
-	  }];
-	  var action = {
-	    type: 'TOGGLE_TODO',
-	    id: 1,
-	    name: 'this other thing needs doing'
-	  };
-	  deepFreeze(stateBefore);
-	  expect(todos(stateBefore, action)).toEqual(stateAfter);
-	};
-
-	testToggleTodos();
-	testAddTodo();
-
 	var combineReducers = function combineReducers(reducers) {
 	  return function () {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];

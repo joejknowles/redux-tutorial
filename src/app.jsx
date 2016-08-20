@@ -38,61 +38,6 @@ const visibilityFilter = (state='SHOW_ALL', action) => {
   }
 }
 
-const testAddTodo= () => {
-  const stateBefore = [];
-  const stateAfter = [{
-    id: 0,
-    name: 'this needs doing',
-    completed: false
-  }];
-  const action = {
-    type: 'ADD_TODO',
-    id: 0,
-    name: 'this needs doing'
-  };
-  deepFreeze(stateBefore);
-  expect(
-    todos(stateBefore, action)
-  ).toEqual(stateAfter);
-};
-
-const testToggleTodos= () => {
-  const stateBefore = [{
-    id: 0,
-    name: 'this needs doing',
-    completed: false
-  },
-  {
-    id: 1,
-    name: 'this other thing needs doing',
-    completed: false
-  }];
-  const stateAfter  = [{
-    id: 0,
-    name: 'this needs doing',
-    completed: false
-  },
-  {
-    id: 1,
-    name: 'this other thing needs doing',
-    completed: true
-  }];
-  const action = {
-    type: 'TOGGLE_TODO',
-    id: 1,
-    name: 'this other thing needs doing'
-  };
-  deepFreeze(stateBefore);
-  expect(
-    todos(stateBefore, action)
-  ).toEqual(stateAfter);
-};
-
-testToggleTodos();
-testAddTodo();
-
-
-
 const combineReducers = (reducers) => {
   return (state = {}, action) => {
     return Object.keys(reducers).reduce((previous, key) =>{
