@@ -122,33 +122,41 @@ console.log('tests passed');
 const { Component } = React;
 
 import TodoList from './TodoList.jsx';
+import AddTodo from './AddTodo.jsx';
+import FilterTodos from './FilterTodos.jsx';
 
-let nextTodoId = 0;
 class TodoApp extends Component {
   render() {
     return (
       <div>
-        <input
-          autoFocus={true}
-          ref={(node)=> {
-            this.input = node;
-          }}/>
-        <button onClick={ () => {
-            if (this.input.value) {
-              store.dispatch({type: 'ADD_TODO', name: this.input.value, id: ++nextTodoId});
-              this.input.value = '';
-            }
-          }
-        }>Add Todo</button>
-      <TodoList todos={ this.props.todos }
+        <AddTodo store={ store } />
+        <FilterTodos store={ store } />
+        <TodoList todos={ this.props.todos }
         store={ store } />
       </div>
     );
   }
 }
 
+const filterTodos = (allTodos, filter) => {
+  console.log(filter)
+  switch (filter) {
+    case 'SHOW_ALL':
+      return allTodos;
+    case 'COMPLETED':
+      return allTodos.slice().filter((t) => t.completed );
+    case 'TODO':
+      return allTodos.slice().filter((t) => !t.completed );
+    default:
+      return allTodos;
+  }
+}
+
 const render = () => {
-  ReactDOM.render(<TodoApp todos={store.getState().todos}/>, document.getElementById('root'));
+  const { todos, visibilityFilter } = store.getState();
+  const filteredTodos = filterTodos(todos, visibilityFilter);
+  console.log(filteredTodos)
+  ReactDOM.render(<TodoApp todos={filteredTodos}/>, document.getElementById('root'));
   console.log(store.getState());
 };
 

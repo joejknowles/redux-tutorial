@@ -78,9 +78,17 @@
 
 	var _extends3 = _interopRequireDefault(_extends2);
 
-	var _TodoList = __webpack_require__(106);
+	var _TodoList = __webpack_require__(105);
 
 	var _TodoList2 = _interopRequireDefault(_TodoList);
+
+	var _AddTodo = __webpack_require__(107);
+
+	var _AddTodo2 = _interopRequireDefault(_AddTodo);
+
+	var _FilterTodos = __webpack_require__(108);
+
+	var _FilterTodos2 = _interopRequireDefault(_FilterTodos);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -207,9 +215,6 @@
 	var _React = React;
 	var Component = _React.Component;
 
-
-	var nextTodoId = 0;
-
 	var TodoApp = function (_Component) {
 	  (0, _inherits3.default)(TodoApp, _Component);
 
@@ -221,26 +226,11 @@
 	  (0, _createClass3.default)(TodoApp, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      return React.createElement(
 	        'div',
 	        null,
-	        React.createElement('input', {
-	          autoFocus: true,
-	          ref: function ref(node) {
-	            _this2.input = node;
-	          } }),
-	        React.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              if (_this2.input.value) {
-	                store.dispatch({ type: 'ADD_TODO', name: _this2.input.value, id: ++nextTodoId });
-	                _this2.input.value = '';
-	              }
-	            } },
-	          'Add Todo'
-	        ),
+	        React.createElement(_AddTodo2.default, { store: store }),
+	        React.createElement(_FilterTodos2.default, { store: store }),
 	        React.createElement(_TodoList2.default, { todos: this.props.todos,
 	          store: store })
 	      );
@@ -249,8 +239,33 @@
 	  return TodoApp;
 	}(Component);
 
+	var filterTodos = function filterTodos(allTodos, filter) {
+	  console.log(filter);
+	  switch (filter) {
+	    case 'SHOW_ALL':
+	      return allTodos;
+	    case 'COMPLETED':
+	      return allTodos.slice().filter(function (t) {
+	        return t.completed;
+	      });
+	    case 'TODO':
+	      return allTodos.slice().filter(function (t) {
+	        return !t.completed;
+	      });
+	    default:
+	      return allTodos;
+	  }
+	};
+
 	var render = function render() {
-	  ReactDOM.render(React.createElement(TodoApp, { todos: store.getState().todos }), document.getElementById('root'));
+	  var _store$getState = store.getState();
+
+	  var todos = _store$getState.todos;
+	  var visibilityFilter = _store$getState.visibilityFilter;
+
+	  var filteredTodos = filterTodos(todos, visibilityFilter);
+	  console.log(filteredTodos);
+	  ReactDOM.render(React.createElement(TodoApp, { todos: filteredTodos }), document.getElementById('root'));
 	  console.log(store.getState());
 	};
 
@@ -2125,6 +2140,76 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
+	var _todoItem = __webpack_require__(106);
+
+	var _todoItem2 = _interopRequireDefault(_todoItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _React = React;
+	var Component = _React.Component;
+
+	var TodoList = function (_Component) {
+	  (0, _inherits3.default)(TodoList, _Component);
+
+	  function TodoList() {
+	    (0, _classCallCheck3.default)(this, TodoList);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(TodoList).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(TodoList, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var todos = _props.todos;
+	      var store = _props.store;
+
+	      return React.createElement(
+	        'ul',
+	        null,
+	        todos.map(function (todoItem) {
+	          return React.createElement(_todoItem2.default, { key: todoItem.id,
+	            todoItem: todoItem,
+	            store: store });
+	        })
+	      );
+	    }
+	  }]);
+	  return TodoList;
+	}(Component);
+
+	exports.default = TodoList;
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(1);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(27);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(28);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(32);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(79);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _React = React;
@@ -2166,7 +2251,7 @@
 	exports.default = TodoItem;
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2195,45 +2280,140 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _todoItem = __webpack_require__(105);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _todoItem2 = _interopRequireDefault(_todoItem);
+	var _React = React;
+	var Component = _React.Component;
+
+	var nextTodoId = 0;
+
+	var AddTodo = function (_Component) {
+	  (0, _inherits3.default)(AddTodo, _Component);
+
+	  function AddTodo() {
+	    (0, _classCallCheck3.default)(this, AddTodo);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(AddTodo).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(AddTodo, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var store = this.props.store;
+
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'form',
+	          { onSubmit: function onSubmit(e) {
+	              e.preventDefault();
+	              if (_this2.input.value) {
+	                store.dispatch({ type: 'ADD_TODO', name: _this2.input.value, id: ++nextTodoId });
+	                _this2.input.value = '';
+	              }
+	            } },
+	          React.createElement('input', {
+	            autoFocus: true,
+	            ref: function ref(node) {
+	              return _this2.input = node;
+	            } }),
+	          React.createElement(
+	            'button',
+	            null,
+	            'Add Todo'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	  return AddTodo;
+	}(Component);
+
+	exports.default = AddTodo;
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(1);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(27);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(28);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(32);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(79);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _React = React;
 	var Component = _React.Component;
 
-	var TodoList = function (_Component) {
-	  (0, _inherits3.default)(TodoList, _Component);
+	var FilterTodos = function (_Component) {
+	  (0, _inherits3.default)(FilterTodos, _Component);
 
-	  function TodoList() {
-	    (0, _classCallCheck3.default)(this, TodoList);
-	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(TodoList).apply(this, arguments));
+	  function FilterTodos() {
+	    (0, _classCallCheck3.default)(this, FilterTodos);
+	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(FilterTodos).apply(this, arguments));
 	  }
 
-	  (0, _createClass3.default)(TodoList, [{
+	  (0, _createClass3.default)(FilterTodos, [{
+	    key: 'createFilterLink',
+	    value: function createFilterLink(text, type, currentFilter) {
+	      var _this2 = this;
+
+	      if (type !== currentFilter) {
+	        return React.createElement(
+	          'a',
+	          { onClick: function onClick() {
+	              _this2.props.store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: type });
+	            } },
+	          text
+	        );
+	      } else {
+	        return React.createElement(
+	          'span',
+	          null,
+	          text
+	        );
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var todos = _props.todos;
-	      var store = _props.store;
-
+	      var currentFilter = this.props.store.getState().visibilityFilter;
 	      return React.createElement(
-	        'ul',
+	        'div',
 	        null,
-	        todos.map(function (todoItem) {
-	          return React.createElement(_todoItem2.default, { key: todoItem.id,
-	            todoItem: todoItem,
-	            store: store });
-	        })
+	        this.createFilterLink('Show All', 'SHOW_ALL', currentFilter),
+	        this.createFilterLink('Show Completed', 'COMPLETED', currentFilter),
+	        this.createFilterLink('Show Todo', 'TODO', currentFilter)
 	      );
 	    }
 	  }]);
-	  return TodoList;
+	  return FilterTodos;
 	}(Component);
 
-	exports.default = TodoList;
+	exports.default = FilterTodos;
 
 /***/ }
 /******/ ]);
