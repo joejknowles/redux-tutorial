@@ -18,8 +18,8 @@ const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
-        ...state,
-        todo(undefined, action)
+      todo(undefined, action),
+        ...state
       ];
     case 'TOGGLE_TODO':
       return state.map((t) => todo(t, action));
@@ -118,34 +118,28 @@ store.dispatch({type: "ADD_TODO", id: 0, name: 'first todo'})
 console.log(store.getState());
 console.log('tests passed');
 
-import TodoItem from './todoItem.jsx'
 
 const { Component } = React;
 
-class TodoList extends Component {
-  render() {
-    const { todos, store } = this.props;
-    return (
-      <ul>
-        {todos.map(todoItem =>
-          <TodoItem key={todoItem.id}
-            todoItem={ todoItem }
-            store={ store } />
-        )}
-      </ul>
-    );
-  }
-}
+import TodoList from './TodoList.jsx';
 
 let nextTodoId = 0;
 class TodoApp extends Component {
   render() {
     return (
       <div>
+        <input
+          autoFocus={true}
+          ref={(node)=> {
+            this.input = node;
+          }}/>
         <button onClick={ () => {
-          store.dispatch({type: 'ADD_TODO', name: 'test', id: ++nextTodoId});
+            if (this.input.value) {
+              store.dispatch({type: 'ADD_TODO', name: this.input.value, id: ++nextTodoId});
+              this.input.value = '';
+            }
           }
-        }>button</button>
+        }>Add Todo</button>
       <TodoList todos={ this.props.todos }
         store={ store } />
       </div>
