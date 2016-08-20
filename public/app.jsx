@@ -14,9 +14,6 @@ const todo = (state = {}, action) => {
       return state;
   }
 };
-
-
-
 const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -121,7 +118,25 @@ store.dispatch({type: "ADD_TODO", id: 0, name: 'first todo'})
 console.log(store.getState());
 console.log('tests passed');
 
+import TodoItem from './todoItem.jsx'
+
 const { Component } = React;
+
+class TodoList extends Component {
+  render() {
+    const { todos, store } = this.props;
+    return (
+      <ul>
+        {todos.map(todoItem =>
+          <TodoItem key={todoItem.id}
+            todoItem={ todoItem }
+            store={ store } />
+        )}
+      </ul>
+    );
+  }
+}
+
 let nextTodoId = 0;
 class TodoApp extends Component {
   render() {
@@ -129,23 +144,18 @@ class TodoApp extends Component {
       <div>
         <button onClick={ () => {
           store.dispatch({type: 'ADD_TODO', name: 'test', id: ++nextTodoId});
-          console.log(store.getState());
           }
         }>button</button>
-      <ul>
-        {this.props.todos.map(todo =>
-          <li key={todo.id}>
-            {todo.name}
-          </li>
-        )}
-      </ul>
+      <TodoList todos={ this.props.todos }
+        store={ store } />
       </div>
     );
   }
 }
 
-const render = (state) => {
+const render = () => {
   ReactDOM.render(<TodoApp todos={store.getState().todos}/>, document.getElementById('root'));
+  console.log(store.getState());
 };
 
 store.subscribe(render);
