@@ -14,6 +14,7 @@ const todo = (state = {}, action) => {
       return state;
   }
 };
+
 const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -28,7 +29,6 @@ const todos = (state = [], action) => {
   }
 }
 
-
 const visibilityFilter = (state='SHOW_ALL', action) => {
   switch (action.type) {
     case 'SET_VISIBILITY_FILTER':
@@ -37,7 +37,6 @@ const visibilityFilter = (state='SHOW_ALL', action) => {
       return state;
   }
 }
-
 
 const testAddTodo= () => {
   const stateBefore = [];

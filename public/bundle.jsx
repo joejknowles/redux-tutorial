@@ -110,6 +110,7 @@
 	      return state;
 	  }
 	};
+
 	var todos = function todos() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var action = arguments[1];
@@ -2384,7 +2385,8 @@
 	      if (type !== currentFilter) {
 	        return React.createElement(
 	          'a',
-	          { onClick: function onClick() {
+	          { style: { textDecoration: 'underline', cursor: 'pointer' },
+	            onClick: function onClick() {
 	              _this2.props.store.dispatch({ type: 'SET_VISIBILITY_FILTER', filter: type });
 	            } },
 	          text
@@ -2403,9 +2405,11 @@
 	      var currentFilter = this.props.store.getState().visibilityFilter;
 	      return React.createElement(
 	        'div',
-	        null,
+	        { style: { color: 'blue' } },
 	        this.createFilterLink('Show All', 'SHOW_ALL', currentFilter),
+	        ' ',
 	        this.createFilterLink('Show Completed', 'COMPLETED', currentFilter),
+	        ' ',
 	        this.createFilterLink('Show Todo', 'TODO', currentFilter)
 	      );
 	    }
