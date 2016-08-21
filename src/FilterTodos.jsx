@@ -1,5 +1,5 @@
 import FilterLink from './FilterLink.jsx'
-export default function FilterTodos({ onFilterChange, visibilityFilter }) {
+export default ({ onFilterChange, visibilityFilter }) => {
   return (
     <div style={{color:'blue'}}>
       <FilterLink filter='SHOW_ALL' >

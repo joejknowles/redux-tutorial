@@ -1,4 +1,4 @@
-export default function Link({children, onClick, active}) {
+export default ({children, onClick, active}) => {
   if (active)
     return <span>{ children }</span>;
   return (<a

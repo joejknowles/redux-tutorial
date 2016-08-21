@@ -3,8 +3,6 @@ import { addTodoAction } from './Actions.jsx'
 const { Component } = React;
 const { connect } = ReactRedux;
 
-
-
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddTodo: (name) => {

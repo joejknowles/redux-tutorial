@@ -1,4 +1,4 @@
-export default function InputText({ onAddTodo }) {
+export default ({ onAddTodo }) => {
   let input;
   return (
     <div>

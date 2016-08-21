@@ -1,20 +1,18 @@
 let nextTodoId = 0;
 
-export function addTodoAction(name) {
-  return {
-    type: 'ADD_TODO',
-    id: ++nextTodoId,
-    name
-  };
-}
+export const addTodoAction = (name) => ({
+  type: 'ADD_TODO',
+  id: ++nextTodoId,
+  name
+});
 
-export function toggleTodoAction(id) {
-  return {type: 'TOGGLE_TODO', id};
-}
+export const toggleTodoAction = (id) => ({
+  type: 'TOGGLE_TODO',
+  id
+});
 
-export function changeFilterAction(filter) {
-  return {
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-  };
-}
+
+export const changeFilterAction = (filter) => ({
+  type: 'SET_VISIBILITY_FILTER',
+  filter
+});
