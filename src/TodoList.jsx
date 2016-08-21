@@ -1,5 +1,6 @@
 import TodoItem from './todoItem.jsx';
 const { connect } = ReactRedux;
+import { toggleTodoAction } from './Actions.jsx'
 
 const filterTodos = (allTodos, filter) => {
   switch (filter) {
@@ -22,7 +23,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onTodoClick: (id) => {
-      dispatch({type: 'TOGGLE_TODO', id})
+      dispatch(toggleTodoAction(id))
     }
   };
 }

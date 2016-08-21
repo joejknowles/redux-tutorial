@@ -50,10 +50,6 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _TodoList = __webpack_require__(67);
-
-	var _TodoList2 = _interopRequireDefault(_TodoList);
-
 	var _AddTodo = __webpack_require__(68);
 
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
@@ -62,10 +58,12 @@
 
 	var _FilterTodos2 = _interopRequireDefault(_FilterTodos);
 
+	var _TodoList = __webpack_require__(67);
+
+	var _TodoList2 = _interopRequireDefault(_TodoList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _React = React;
-	var Component = _React.Component;
 	var _ReactRedux = ReactRedux;
 	var Provider = _ReactRedux.Provider;
 
@@ -1236,6 +1234,8 @@
 
 	var _todoItem2 = _interopRequireDefault(_todoItem);
 
+	var _Actions = __webpack_require__(113);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _ReactRedux = ReactRedux;
@@ -1269,7 +1269,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onTodoClick: function onTodoClick(id) {
-	      dispatch({ type: 'TOGGLE_TODO', id: id });
+	      dispatch((0, _Actions.toggleTodoAction)(id));
 	    }
 	  };
 	};
@@ -1306,6 +1306,8 @@
 
 	var _InputText2 = _interopRequireDefault(_InputText);
 
+	var _Actions = __webpack_require__(113);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _React = React;
@@ -1313,12 +1315,11 @@
 	var _ReactRedux = ReactRedux;
 	var connect = _ReactRedux.connect;
 
-	var nextTodoId = 0;
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onAddTodo: function onAddTodo(name) {
-	      dispatch({ type: 'ADD_TODO', id: ++nextTodoId, name: name });
+	      dispatch((0, _Actions.addTodoAction)(name));
 	    }
 	  };
 	};
@@ -1462,6 +1463,8 @@
 
 	var _Link2 = _interopRequireDefault(_Link);
 
+	var _Actions = __webpack_require__(113);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _ReactRedux = ReactRedux;
@@ -1476,10 +1479,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    onClick: function onClick() {
-	      dispatch({
-	        type: 'SET_VISIBILITY_FILTER',
-	        filter: ownProps.filter
-	      });
+	      dispatch((0, _Actions.changeFilterAction)(ownProps.filter));
 	    }
 	  };
 	};
@@ -1541,6 +1541,39 @@
 	    name,
 	    tick
 	  );
+	}
+
+/***/ },
+/* 113 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.addTodoAction = addTodoAction;
+	exports.toggleTodoAction = toggleTodoAction;
+	exports.changeFilterAction = changeFilterAction;
+	var nextTodoId = 0;
+
+	function addTodoAction(name) {
+	  return {
+	    type: 'ADD_TODO',
+	    id: ++nextTodoId,
+	    name: name
+	  };
+	}
+
+	function toggleTodoAction(id) {
+	  return { type: 'TOGGLE_TODO', id: id };
+	}
+
+	function changeFilterAction(filter) {
+	  return {
+	    type: 'SET_VISIBILITY_FILTER',
+	    filter: filter
+	  };
 	}
 
 /***/ }
