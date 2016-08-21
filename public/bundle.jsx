@@ -46,26 +46,6 @@
 
 	'use strict';
 
-	var _getPrototypeOf = __webpack_require__(71);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(74);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(75);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(79);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(102);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
 	var _store = __webpack_require__(1);
 
 	var _store2 = _interopRequireDefault(_store);
@@ -86,34 +66,9 @@
 
 	var _React = React;
 	var Component = _React.Component;
+	var _ReactRedux = ReactRedux;
+	var Provider = _ReactRedux.Provider;
 
-	var Provider = function (_Component) {
-	  (0, _inherits3.default)(Provider, _Component);
-
-	  function Provider() {
-	    (0, _classCallCheck3.default)(this, Provider);
-	    return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Provider).apply(this, arguments));
-	  }
-
-	  (0, _createClass3.default)(Provider, [{
-	    key: 'getChildContext',
-	    value: function getChildContext() {
-	      return {
-	        store: this.props.store
-	      };
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return this.props.children;
-	    }
-	  }]);
-	  return Provider;
-	}(Component);
-
-	Provider.childContextTypes = {
-	  store: React.PropTypes.object
-	};
 
 	var TodoApp = function TodoApp() {
 	  return React.createElement(
