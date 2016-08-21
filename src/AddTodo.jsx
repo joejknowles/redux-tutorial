@@ -1,25 +1,25 @@
+import InputText from './InputText.jsx'
 const { Component } = React;
 let nextTodoId = 0;
 
 export default class AddTodo extends Component {
+  componentDidMount() {
+    const { store } = this.context;
+    this.unsubscribe = store.subscribe(()=> this.forceUpdate());
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
   render() {
-    const { store } = this.props;
+    const {store} = this.context;
     return(
-      <div>
-        <form onSubmit={(e) => {
-            e.preventDefault();
-            if (this.input.value) {
-              store.dispatch({type: 'ADD_TODO', name: this.input.value, id: ++nextTodoId});
-              this.input.value = '';
-            }
-          }
-        }>
-          <input
-          autoFocus={true}
-          ref={(node)=> this.input = node}/>
-          <button>Add Todo</button>
-        </form>
-      </div>
+      <InputText onAddTodo={ (name) => store.dispatch({type: 'ADD_TODO', id: ++nextTodoId, name}) }>
+        Add Todo
+      </InputText>
     );
   }
+}
+
+AddTodo.contextTypes = {
+  store: React.PropTypes.object
 }
