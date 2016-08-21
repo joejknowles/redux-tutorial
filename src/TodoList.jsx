@@ -1,6 +1,5 @@
 import TodoItem from './todoItem.jsx';
-import store from './store.jsx'
-const { Component } = React
+const { Component } = React;
 
 const filterTodos = (allTodos, filter) => {
   switch (filter) {
@@ -17,6 +16,7 @@ const filterTodos = (allTodos, filter) => {
 
 export default class TodoList extends Component {
   componentDidMount() {
+    const { store } = this.context;
     this.unsubscribe = store.subscribe(()=>
       this.forceUpdate()
     );
@@ -25,11 +25,16 @@ export default class TodoList extends Component {
     this.unsubscribe();
   }
   render() {
+    const { store } = this.context;
     const { todos, visibilityFilter } = store.getState();
     return <List
       todos={ filterTodos(todos, visibilityFilter) }
       onTodoClick={ (id) => store.dispatch({type: 'TOGGLE_TODO', id}) }/>
   }
+}
+
+TodoList.contextTypes = {
+  store: React.PropTypes.object
 }
 
 const List = ({ todos, onTodoClick }) => {

@@ -1301,10 +1301,6 @@
 
 	var _todoItem2 = _interopRequireDefault(_todoItem);
 
-	var _store = __webpack_require__(1);
-
-	var _store2 = _interopRequireDefault(_store);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _React = React;
@@ -1341,7 +1337,9 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.unsubscribe = _store2.default.subscribe(function () {
+	      var store = this.context.store;
+
+	      this.unsubscribe = store.subscribe(function () {
 	        return _this2.forceUpdate();
 	      });
 	    }
@@ -1353,7 +1351,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _store$getState = _store2.default.getState();
+	      var store = this.context.store;
+
+	      var _store$getState = store.getState();
 
 	      var todos = _store$getState.todos;
 	      var visibilityFilter = _store$getState.visibilityFilter;
@@ -1361,7 +1361,7 @@
 	      return React.createElement(List, {
 	        todos: filterTodos(todos, visibilityFilter),
 	        onTodoClick: function onTodoClick(id) {
-	          return _store2.default.dispatch({ type: 'TOGGLE_TODO', id: id });
+	          return store.dispatch({ type: 'TOGGLE_TODO', id: id });
 	        } });
 	    }
 	  }]);
@@ -1370,6 +1370,10 @@
 
 	exports.default = TodoList;
 
+
+	TodoList.contextTypes = {
+	  store: React.PropTypes.object
+	};
 
 	var List = function List(_ref) {
 	  var todos = _ref.todos;
@@ -2381,10 +2385,6 @@
 
 	var _Link2 = _interopRequireDefault(_Link);
 
-	var _store = __webpack_require__(1);
-
-	var _store2 = _interopRequireDefault(_store);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _React = React;
@@ -2403,7 +2403,9 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      this.unsubscribe = _store2.default.subscribe(function () {
+	      var store = this.context.store;
+
+	      this.unsubscribe = store.subscribe(function () {
 	        return _this2.forceUpdate();
 	      });
 	    }
@@ -2415,15 +2417,16 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var store = this.context.store;
 	      var _props = this.props;
 	      var filter = _props.filter;
 	      var children = _props.children;
 
-	      var state = _store2.default.getState();
+	      var state = store.getState();
 	      return React.createElement(
 	        _Link2.default,
 	        { onClick: function onClick() {
-	            return _store2.default.dispatch({
+	            return store.dispatch({
 	              type: 'SET_VISIBILITY_FILTER',
 	              filter: filter
 	            });
@@ -2438,6 +2441,10 @@
 	}(Component);
 
 	exports.default = FilterLink;
+
+	FilterLink.contextTypes = {
+	  store: React.PropTypes.object
+	};
 
 /***/ },
 /* 111 */
