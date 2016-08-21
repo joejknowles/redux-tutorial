@@ -14,6 +14,9 @@ const TodoApp = () => (
   </div>
 )
 
-ReactDOM.render(<Provider store={ store }>
-  <TodoApp />
-</Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={ store }>
+    <TodoApp />
+  </Provider>,
+  document.getElementById('root')
+);

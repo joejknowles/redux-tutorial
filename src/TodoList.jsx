@@ -1,5 +1,6 @@
 import TodoItem from './todoItem.jsx';
 const { Component } = React;
+const { connect } = ReactRedux;
 
 const filterTodos = (allTodos, filter) => {
   switch (filter) {
@@ -14,27 +15,17 @@ const filterTodos = (allTodos, filter) => {
   }
 }
 
-export default class TodoList extends Component {
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(()=>
-      this.forceUpdate()
-    );
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  render() {
-    const { store } = this.context;
-    const { todos, visibilityFilter } = store.getState();
-    return <List
-      todos={ filterTodos(todos, visibilityFilter) }
-      onTodoClick={ (id) => store.dispatch({type: 'TOGGLE_TODO', id}) }/>
-  }
+const mapStateToProps = (state) => {
+  const { todos, visibilityFilter } = state;
+  return {
+    todos: filterTodos(todos, visibilityFilter)
+  };
 }
 
-TodoList.contextTypes = {
-  store: React.PropTypes.object
+const mapDispatchToProps = (dispatch) => {
+  return (id) => {
+    dispatch({type: 'TOGGLE_TODO', id})
+  };
 }
 
 const List = ({ todos, onTodoClick }) => {
@@ -48,3 +39,5 @@ const List = ({ todos, onTodoClick }) => {
     </ul>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);
