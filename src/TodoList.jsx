@@ -14,19 +14,15 @@ const filterTodos = (allTodos, filter) => {
       return allTodos;
   }
 }
-const mapStateToProps = (state) => {
-  const { todos, visibilityFilter } = state;
-  return {
-    todos: filterTodos(todos, visibilityFilter)
-  };
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTodoClick: (id) => {
-      dispatch(toggleTodoAction(id))
-    }
-  };
-}
+const mapStateToProps = (state) => ({
+  todos: filterTodos(state.todos, state.visibilityFilter)
+});
+const mapDispatchToProps = (dispatch) => ({
+  onTodoClick(id) {
+    dispatch(toggleTodoAction(id));
+  },
+});
+
 const List = ({ todos, onTodoClick }) => {
   return (
     <ul>

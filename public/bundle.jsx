@@ -1475,11 +1475,8 @@
 	  }
 	};
 	var mapStateToProps = function mapStateToProps(state) {
-	  var todos = state.todos;
-	  var visibilityFilter = state.visibilityFilter;
-
 	  return {
-	    todos: filterTodos(todos, visibilityFilter)
+	    todos: filterTodos(state.todos, state.visibilityFilter)
 	  };
 	};
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -1489,6 +1486,7 @@
 	    }
 	  };
 	};
+
 	var List = function List(_ref) {
 	  var todos = _ref.todos;
 	  var onTodoClick = _ref.onTodoClick;
