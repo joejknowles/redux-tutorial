@@ -1,4 +1,4 @@
-export default function InputText({ onAddTodo, children }) {
+export default function InputText({ onAddTodo }) {
   let input;
   return (
     <div>
@@ -13,7 +13,7 @@ export default function InputText({ onAddTodo, children }) {
         <input
         autoFocus={true}
         ref={(node)=> input = node}/>
-      <button>{ children }</button>
+      <button>Add Todo</button>
       </form>
     </div>
   );

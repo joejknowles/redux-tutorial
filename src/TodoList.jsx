@@ -1,5 +1,4 @@
 import TodoItem from './todoItem.jsx';
-const { Component } = React;
 const { connect } = ReactRedux;
 
 const filterTodos = (allTodos, filter) => {
@@ -14,20 +13,19 @@ const filterTodos = (allTodos, filter) => {
       return allTodos;
   }
 }
-
 const mapStateToProps = (state) => {
   const { todos, visibilityFilter } = state;
   return {
     todos: filterTodos(todos, visibilityFilter)
   };
 }
-
 const mapDispatchToProps = (dispatch) => {
-  return (id) => {
-    dispatch({type: 'TOGGLE_TODO', id})
+  return {
+    onTodoClick: (id) => {
+      dispatch({type: 'TOGGLE_TODO', id})
+    }
   };
 }
-
 const List = ({ todos, onTodoClick }) => {
   return (
     <ul>

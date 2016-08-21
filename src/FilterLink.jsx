@@ -1,33 +1,20 @@
-import Link from './Link.jsx'
-const { Component } = React
+import Link from './Link.jsx';
+const { connect } = ReactRedux;
 
-export default class FilterLink extends Component {
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(()=>
-      this.forceUpdate()
-    );
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  render() {
-    const { store } = this.context;
-    const { filter, children } = this.props;
-    const state = store.getState();
-    return (
-      <Link onClick={ ()=>
-        store.dispatch({
-          type: 'SET_VISIBILITY_FILTER',
-          filter
-        }) }
-        active={ filter === state.visibilityFilter }
-        >
-        { children }
-      </Link>
-    );
-  }
-}
-FilterLink.contextTypes = {
-  store: React.PropTypes.object
-}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    active: ownProps.filter === state.visibilityFilter
+  };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onClick: () => {
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+      })
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Link)
