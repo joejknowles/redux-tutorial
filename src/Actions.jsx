@@ -1,8 +1,8 @@
-let nextTodoId = 0;
+import { generate } from 'shortid'
 
 export const addTodoAction = (name) => ({
   type: 'ADD_TODO',
-  id: ++nextTodoId,
+  id: generate(),
   name
 });
 
