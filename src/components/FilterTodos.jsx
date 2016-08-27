@@ -1,16 +1,16 @@
-import FilterLink from './FilterLink.jsx'
+import FilterLink from '../containers/FilterLink.jsx'
 export default ({ onFilterChange, visibilityFilter }) => {
   return (
-    <div style={{color:'blue'}}>
-      <FilterLink filter='SHOW_ALL' >
+    <div>
+      <FilterLink filter='all' >
         Show All
       </FilterLink>
       &nbsp;
-      <FilterLink filter='COMPLETED' >
+      <FilterLink filter='completed' >
         Show Completed
       </FilterLink>
       &nbsp;
-      <FilterLink filter='TODO' >
+      <FilterLink filter='active' >
         Show Todo
       </FilterLink>
     </div>

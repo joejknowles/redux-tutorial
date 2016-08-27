@@ -1,5 +1,5 @@
-import InputText from './InputText.jsx'
-import { addTodoAction } from './Actions.jsx'
+import InputText from '../components/InputText.jsx'
+import { addTodoAction } from '../actions/index.jsx'
 const { Component } = React;
 const { connect } = ReactRedux;
 

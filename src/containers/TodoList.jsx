@@ -1,6 +1,7 @@
-import TodoItem from './todoItem.jsx';
+import TodoItem from '../components/todoItem.jsx';
 const { connect } = ReactRedux;
-import { toggleTodoAction } from './Actions.jsx'
+import { toggleTodoAction } from '../actions/index.jsx';
+import List from '../components/list.jsx';
 
 const filterTodos = (allTodos, filter) => {
   switch (filter) {
@@ -22,17 +23,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(toggleTodoAction(id));
   },
 });
-
-const List = ({ todos, onTodoClick }) => {
-  return (
-    <ul>
-      {todos.map(todoItem =>
-        <TodoItem key={todoItem.id}
-          { ...todoItem }
-          onClick={ () => onTodoClick(todoItem.id) } />
-      )}
-    </ul>
-  );
-}
-
 export default connect(mapStateToProps, mapDispatchToProps)(List);

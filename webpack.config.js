@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './src/app.jsx',
+  entry: './src/index.jsx',
   output: {
     path: './public',
     filename: 'bundle.jsx'
@@ -9,7 +9,10 @@ module.exports = {
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        query: {
+          compact: true
+        }
       }
     ]
   },
