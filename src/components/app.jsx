@@ -2,7 +2,7 @@ import AddTodo from '../containers/AddTodo.jsx';
 import FilterTodos from './FilterTodos.jsx';
 import TodoList from '../containers/TodoList.jsx';
 
-const App = ({}) => (
+const App = ({ params }) => (
   <div>
     <AddTodo />
     <FilterTodos />

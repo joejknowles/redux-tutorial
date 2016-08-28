@@ -1,26 +1,30 @@
 import TodoItem from '../components/todoItem.jsx';
 const { connect } = ReactRedux;
+import { withRouter } from 'react-router'
 import { toggleTodoAction } from '../actions/index.jsx';
 import List from '../components/list.jsx';
 
 const filterTodos = (allTodos, filter) => {
   switch (filter) {
-    case 'SHOW_ALL':
+    case 'all':
       return allTodos;
-    case 'COMPLETED':
+    case 'completed':
       return allTodos.filter((t) => t.completed );
-    case 'TODO':
+    case 'active':
       return allTodos.filter((t) => !t.completed );
     default:
       return allTodos;
   }
 }
-const mapStateToProps = (state) => ({
-  todos: filterTodos(state.todos, state.visibilityFilter)
+const mapStateToProps = (state, { params }) => ({
+  todos: filterTodos(state.todos, params.filter)
 });
 const mapDispatchToProps = (dispatch) => ({
   onTodoClick(id) {
     dispatch(toggleTodoAction(id));
   },
 });
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default withRouter(connect(
+  mapStateToProps,
+  { onTodoClick: toggleTodoAction}
+)(List));
