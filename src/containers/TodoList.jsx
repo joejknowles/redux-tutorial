@@ -3,26 +3,10 @@ const { connect } = ReactRedux;
 import { withRouter } from 'react-router'
 import { toggleTodoAction } from '../actions/index.jsx';
 import List from '../components/list.jsx';
+import { filterTodos } from '../reducers/index.jsx'
 
-const filterTodos = (allTodos, filter) => {
-  switch (filter) {
-    case 'all':
-      return allTodos;
-    case 'completed':
-      return allTodos.filter((t) => t.completed );
-    case 'active':
-      return allTodos.filter((t) => !t.completed );
-    default:
-      return allTodos;
-  }
-}
 const mapStateToProps = (state, { params }) => ({
-  todos: filterTodos(state.todos, params.filter)
-});
-const mapDispatchToProps = (dispatch) => ({
-  onTodoClick(id) {
-    dispatch(toggleTodoAction(id));
-  },
+  todos: filterTodos(state, params.filter)
 });
 export default withRouter(connect(
   mapStateToProps,
