@@ -1,12 +1,17 @@
 import { generate } from 'shortid'
 
-export const addTodoAction = (name) => ({
+export const addTodo = (name) => ({
   type: 'ADD_TODO',
   id: generate(),
   name
 });
 
-export const toggleTodoAction = (id) => ({
+export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',
   id
+});
+
+export const receiveTodos = (response) => ({
+  type: 'RECEIVE_TODOS',
+  response
 });
