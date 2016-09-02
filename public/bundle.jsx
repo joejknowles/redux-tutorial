@@ -86,7 +86,7 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.fetchTodos=exports.toggleTodo=exports.addTodo=undefined;var _shortid=__webpack_require__(7);var _fakeDB=__webpack_require__(16);var api=_interopRequireWildcard(_fakeDB);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}var addTodo=exports.addTodo=function addTodo(name){return{type:'ADD_TODO',id:(0,_shortid.generate)(),name:name};};var toggleTodo=exports.toggleTodo=function toggleTodo(id){return{type:'TOGGLE_TODO',id:id};};var receiveTodos=function receiveTodos(response){return{type:'RECEIVE_TODOS',response:response};};var fetchTodos=exports.fetchTodos=function fetchTodos(filter){return api.fetchTodos(filter).then(function(response){return receiveTodos(filter,response);});};
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.fetchTodos=exports.toggleTodo=exports.addTodo=undefined;var _shortid=__webpack_require__(7);var _fakeDB=__webpack_require__(16);var api=_interopRequireWildcard(_fakeDB);function _interopRequireWildcard(obj){if(obj&&obj.__esModule){return obj;}else{var newObj={};if(obj!=null){for(var key in obj){if(Object.prototype.hasOwnProperty.call(obj,key))newObj[key]=obj[key];}}newObj.default=obj;return newObj;}}var addTodo=exports.addTodo=function addTodo(name){return{type:'ADD_TODO',id:(0,_shortid.generate)(),name:name};};var toggleTodo=exports.toggleTodo=function toggleTodo(id){return{type:'TOGGLE_TODO',id:id};};var receiveTodos=function receiveTodos(filter,response){return{type:'RECEIVE_TODOS',filter:filter,response:response};};var fetchTodos=exports.fetchTodos=function fetchTodos(filter){return api.fetchTodos(filter).then(function(response){return receiveTodos(filter,response);});};
 
 /***/ },
 /* 7 */
@@ -443,7 +443,7 @@
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.fetchTodos=undefined;var _promise=__webpack_require__(17);var _promise2=_interopRequireDefault(_promise);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var fakeData={todos:[{id:'wiubyur',text:'first to do',completed:false},{id:'wiub2yur',text:'second to do',completed:true},{id:'wi3ubyur',text:'next to do',completed:false},{id:'wi4ubyur',text:'another to do',completed:true},{id:'wi5ubyur',text:'this to do',completed:false},{id:'wiuby6ur',text:'last to do',completed:false}]};var delay=function delay(ms){return new _promise2.default(function(resolve){return setTimeout(resolve,ms);});};var fetchTodos=exports.fetchTodos=function fetchTodos(filter){return delay(500).then(function(){switch(filter){case'all':return fakeData.todos;case'active':return fakeData.todos.filter(function(todo){return!todo.completed;});case'completed':return fakeData.todos.filter(function(todo){return todo.completed;});default:return fakeData.todos;}});};
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.fetchTodos=undefined;var _promise=__webpack_require__(17);var _promise2=_interopRequireDefault(_promise);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var fakeData={todos:[{id:'wiubyur',name:'first to do',completed:false},{id:'wiub2yur',name:'second to do',completed:true},{id:'wi3ubyur',name:'next to do',completed:false},{id:'wi4ubyur',name:'another to do',completed:true},{id:'wi5ubyur',name:'this to do',completed:false},{id:'wiuby6ur',name:'last to do',completed:false}]};var delay=function delay(ms){return new _promise2.default(function(resolve){return setTimeout(resolve,ms);});};var fetchTodos=exports.fetchTodos=function fetchTodos(filter){return delay(500).then(function(){switch(filter){case'all':return fakeData.todos;case'active':return fakeData.todos.filter(function(todo){return!todo.completed;});case'completed':return fakeData.todos.filter(function(todo){return todo.completed;});default:return fakeData.todos;}});};
 
 /***/ },
 /* 17 */
@@ -11779,140 +11779,16 @@
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.filterTodos=undefined;var _toConsumableArray2=__webpack_require__(220);var _toConsumableArray3=_interopRequireDefault(_toConsumableArray2);var _defineProperty2=__webpack_require__(225);var _defineProperty3=_interopRequireDefault(_defineProperty2);var _extends3=__webpack_require__(173);var _extends4=_interopRequireDefault(_extends3);var _todo=__webpack_require__(226);var _todo2=_interopRequireDefault(_todo);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _Redux=Redux;var combineReducers=_Redux.combineReducers;var byId=function byId(){var state=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var action=arguments[1];switch(action.type){case'ADD_TODO':case'TOGGLE_TODO':return(0,_extends4.default)({},state,(0,_defineProperty3.default)({},action.id,(0,_todo2.default)(state[action.id],action)));default:return state;}};var allIds=function allIds(){var state=arguments.length<=0||arguments[0]===undefined?[]:arguments[0];var action=arguments[1];switch(action.type){case'ADD_TODO':return[].concat((0,_toConsumableArray3.default)(state),[action.id]);default:return state;}};var getAllIds=function getAllIds(state){return state.allIds.map(function(id){return state.byId[id];});};var filterTodos=exports.filterTodos=function filterTodos(state,filter){var allTodos=getAllIds(state);switch(filter){case'all':return allTodos;case'completed':return allTodos.filter(function(t){return t.completed;});case'active':return allTodos.filter(function(t){return!t.completed;});default:return allTodos;}};var todos=combineReducers({byId:byId,allIds:allIds});exports.default=todos;
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});exports.filterTodos=undefined;var _typeof2=__webpack_require__(191);var _typeof3=_interopRequireDefault(_typeof2);var _extends2=__webpack_require__(173);var _extends3=_interopRequireDefault(_extends2);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _Redux=Redux;var combineReducers=_Redux.combineReducers;var byId=function byId(){var state=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var action=arguments[1];var _ret=function(){switch(action.type){case'RECEIVE_TODOS':var nextState=(0,_extends3.default)({},state);action.response.forEach(function(todo){return nextState[todo.id]=todo;});return{v:nextState};default:return{v:state};}}();if((typeof _ret==='undefined'?'undefined':(0,_typeof3.default)(_ret))==="object")return _ret.v;};var filterIds=function filterIds(filter){return function(){var state=arguments.length<=0||arguments[0]===undefined?[]:arguments[0];var action=arguments[1];if(action.filter!=filter){return state;}switch(action.type){case'RECEIVE_TODOS':return action.response.map(function(todo){return todo.id;});default:return state;}};};var getAllIds=function getAllIds(state){return state.allIds.map(function(id){return state.byId[id];});};var filterTodos=exports.filterTodos=function filterTodos(state,filter){var ids=state.idsByFilter[filter];return ids.map(function(id){return state.byId[id];});};var idsByFilter=combineReducers({all:filterIds('all'),active:filterIds('active'),completed:filterIds('completed')});var todos=combineReducers({byId:byId,idsByFilter:idsByFilter});exports.default=todos;
 
 /***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _from = __webpack_require__(221);
-
-	var _from2 = _interopRequireDefault(_from);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (arr) {
-	  if (Array.isArray(arr)) {
-	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-	      arr2[i] = arr[i];
-	    }
-
-	    return arr2;
-	  } else {
-	    return (0, _from2.default)(arr);
-	  }
-	};
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(222), __esModule: true };
-
-/***/ },
-/* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(20);
-	__webpack_require__(223);
-	module.exports = __webpack_require__(28).Array.from;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var ctx            = __webpack_require__(29)
-	  , $export        = __webpack_require__(26)
-	  , toObject       = __webpack_require__(63)
-	  , call           = __webpack_require__(72)
-	  , isArrayIter    = __webpack_require__(73)
-	  , toLength       = __webpack_require__(53)
-	  , createProperty = __webpack_require__(224)
-	  , getIterFn      = __webpack_require__(74);
-
-	$export($export.S + $export.F * !__webpack_require__(81)(function(iter){ Array.from(iter); }), 'Array', {
-	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
-	    var O       = toObject(arrayLike)
-	      , C       = typeof this == 'function' ? this : Array
-	      , aLen    = arguments.length
-	      , mapfn   = aLen > 1 ? arguments[1] : undefined
-	      , mapping = mapfn !== undefined
-	      , index   = 0
-	      , iterFn  = getIterFn(O)
-	      , length, result, step, iterator;
-	    if(mapping)mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-	    // if object isn't iterable or it's array with default iterator - use simple case
-	    if(iterFn != undefined && !(C == Array && isArrayIter(iterFn))){
-	      for(iterator = iterFn.call(O), result = new C; !(step = iterator.next()).done; index++){
-	        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-	      }
-	    } else {
-	      length = toLength(O.length);
-	      for(result = new C(length); length > index; index++){
-	        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-	      }
-	    }
-	    result.length = index;
-	    return result;
-	  }
-	});
-
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var $defineProperty = __webpack_require__(32)
-	  , createDesc      = __webpack_require__(40);
-
-	module.exports = function(object, index, value){
-	  if(index in object)$defineProperty.f(object, index, createDesc(0, value));
-	  else object[index] = value;
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _defineProperty = __webpack_require__(187);
-
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-
-	  return obj;
-	};
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _extends2=__webpack_require__(173);var _extends3=_interopRequireDefault(_extends2);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}exports.default=function(){var state=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var action=arguments[1];switch(action.type){case'ADD_TODO':return{id:action.id,name:action.name,completed:false};case'TOGGLE_TODO':if(state.id!==action.id)return state;return(0,_extends3.default)({},state,{completed:!state.completed});default:return state;}};
-
-/***/ },
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
 /* 227 */
 /***/ function(module, exports, __webpack_require__) {
 

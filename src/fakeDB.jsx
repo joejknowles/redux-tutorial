@@ -1,34 +1,33 @@
-
 const fakeData = {
   todos: [
     {
       id: 'wiubyur',
-      text: 'first to do',
+      name: 'first to do',
       completed: false
     },
     {
       id: 'wiub2yur',
-      text: 'second to do',
+      name: 'second to do',
       completed: true
     },
     {
       id: 'wi3ubyur',
-      text: 'next to do',
+      name: 'next to do',
       completed: false
     },
     {
       id: 'wi4ubyur',
-      text: 'another to do',
+      name: 'another to do',
       completed: true
     },
     {
       id: 'wi5ubyur',
-      text: 'this to do',
+      name: 'this to do',
       completed: false
     },
     {
       id: 'wiuby6ur',
-      text: 'last to do',
+      name: 'last to do',
       completed: false
     },
   ]

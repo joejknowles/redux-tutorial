@@ -12,8 +12,9 @@ export const toggleTodo = (id) => ({
   id
 });
 
-const receiveTodos = (response) => ({
+const receiveTodos = (filter, response) => ({
   type: 'RECEIVE_TODOS',
+  filter,
   response
 });
 
