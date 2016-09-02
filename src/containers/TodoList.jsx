@@ -4,7 +4,6 @@ import { withRouter } from 'react-router'
 import * as actions from '../actions/index.jsx';
 import List from '../components/list.jsx';
 import { filterTodos } from '../reducers/index.jsx'
-import { fetchTodos } from '../fakeDB.jsx'
 
 class TodoList extends React.Component {
   componentDidMount() {
@@ -19,9 +18,8 @@ class TodoList extends React.Component {
   }
 
   updateTodos() {
-    const { filter, receiveTodos } = this.props;
-    fetchTodos(filter).then((todos)=>
-      this.props.receiveTodos(todos));
+    const { filter, fetchTodos } = this.props;
+    fetchTodos(filter);
   }
 
   render() {

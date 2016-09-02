@@ -1,4 +1,5 @@
 import { generate } from 'shortid'
+import * as api from '../fakeDB.jsx'
 
 export const addTodo = (name) => ({
   type: 'ADD_TODO',
@@ -11,7 +12,12 @@ export const toggleTodo = (id) => ({
   id
 });
 
-export const receiveTodos = (response) => ({
+const receiveTodos = (response) => ({
   type: 'RECEIVE_TODOS',
   response
 });
+
+export const fetchTodos = (filter) =>
+  api.fetchTodos(filter).then(response =>
+    receiveTodos(filter, response)
+  );
