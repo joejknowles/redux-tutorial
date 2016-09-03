@@ -21,9 +21,7 @@ const todos = combineReducers({
   listByFilter
 });
 
-export const getIsFetching = (state, filter) => {
-  const val = fromCreateList.getIsFetching(state.listByFilter[filter]);
-  return val;
-}
+export const getIsFetching = (state, filter) =>
+  fromCreateList.getIsFetching(state.listByFilter[filter]);
 
 export default todos;

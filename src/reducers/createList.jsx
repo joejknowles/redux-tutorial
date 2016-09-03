@@ -32,5 +32,4 @@ const createList = (filter) => {
 export default createList;
 export const getIds = (state) => state.ids;
 
-export const getIsFetching = (state) => {
-  return state.isFetching};
+export const getIsFetching = (state) => state.isFetching;
