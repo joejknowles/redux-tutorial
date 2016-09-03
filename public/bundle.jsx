@@ -11791,7 +11791,7 @@
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(218);var _index2=_interopRequireDefault(_index);var _reduxLogger=__webpack_require__(222);var _reduxLogger2=_interopRequireDefault(_reduxLogger);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _Redux=Redux;var createStore=_Redux.createStore;var applyMiddleware=_Redux.applyMiddleware;var thunk=function thunk(store){return function(next){return function(action){if(typeof action!=='function'){return next(action);}return action(store.dispatch,store.getState);};};};var configureStore=function configureStore(){var middlewares=[thunk];if(true){middlewares.push((0,_reduxLogger2.default)());}return createStore(_index2.default,applyMiddleware.apply(undefined,middlewares));};exports.default=configureStore;
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _index=__webpack_require__(218);var _index2=_interopRequireDefault(_index);var _reduxLogger=__webpack_require__(222);var _reduxLogger2=_interopRequireDefault(_reduxLogger);var _reduxThunk=__webpack_require__(230);var _reduxThunk2=_interopRequireDefault(_reduxThunk);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var _Redux=Redux;var createStore=_Redux.createStore;var applyMiddleware=_Redux.applyMiddleware;var configureStore=function configureStore(){var middlewares=[_reduxThunk2.default];if(true){middlewares.push((0,_reduxLogger2.default)());}return createStore(_index2.default,applyMiddleware.apply(undefined,middlewares));};exports.default=configureStore;
 
 /***/ },
 /* 222 */
@@ -12025,6 +12025,41 @@
 	}
 
 	module.exports = createLogger;
+
+/***/ },
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
 
 /***/ }
 /******/ ]);
