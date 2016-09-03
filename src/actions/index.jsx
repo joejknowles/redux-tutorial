@@ -1,4 +1,5 @@
 import { generate } from 'shortid'
+import { getIsFetching } from '../reducers/index.jsx'
 import * as api from '../fakeDB.jsx'
 
 const requestTodos = (filter) =>({
@@ -23,7 +24,12 @@ const receiveTodos = (filter, response) => ({
   response
 });
 
-export const fetchTodos = (filter) => (dispatch) => {
+export const fetchTodos = (filter) => (dispatch, getState) => {
+  const state = getState();
+  if (getIsFetching(state, filter)) {
+    return Promise.resolve();
+  }
+
   dispatch(requestTodos(filter));
   return api.fetchTodos(filter).then(response =>
     dispatch(receiveTodos(filter, response))

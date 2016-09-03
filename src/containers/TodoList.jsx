@@ -19,7 +19,7 @@ class TodoList extends React.Component {
 
   updateTodos() {
     const { filter, fetchTodos } = this.props;
-    fetchTodos(filter);
+    fetchTodos(filter).then(() => console.log('done'));
   }
 
   render() {

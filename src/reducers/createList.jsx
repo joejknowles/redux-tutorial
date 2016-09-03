@@ -13,6 +13,9 @@ const createList = (filter) => {
     }
   }
   const isFetching = (state = false, action) => {
+    if (action.filter != filter) {
+      return state;
+    }
     switch (action.type) {
       case 'REQUEST_TODOS':
         return true;
@@ -23,10 +26,11 @@ const createList = (filter) => {
     }
   };
 
-  return combineReducers({ids, isFetching})
+  return combineReducers({ids, isFetching});
 };
 
 export default createList;
 export const getIds = (state) => state.ids;
 
-export const getIsFetching = (state) => state.isFetching;
+export const getIsFetching = (state) => {
+  return state.isFetching};

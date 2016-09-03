@@ -6,7 +6,7 @@ const thunk = (store) => (next) => (action) => {
   if (typeof action !== 'function') {
     return next(action);
   }
-  return action(store.dispatch);
+  return action(store.dispatch, store.getState);
 };
 
 const configureStore = () => {
