@@ -57,19 +57,21 @@ export const fetchTodos = (filter) => {
 };
 
 export const addTodo = (name) => {
-  delay(500).then(() => {
+  return delay(500).then(() => {
     const todo = {
       id: generate(),
       name,
       completed: false
     };
-    fakeData.push(todo);
+    fakeData.todos.push(todo);
     return todo;
   });
 };
 
 export const toggleTodo = (id) => {
-  const todo = fakeDB.todos.find(t => t.id === id);
-  todo.completed = !todo.completed;
-  return todo;
+  return delay(500).then(() => {
+    const todo = fakeData.todos.find(t => t.id === id);
+    todo.completed = !todo.completed;
+    return todo;
+  });
 };

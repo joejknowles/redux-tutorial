@@ -1,6 +1,18 @@
 import { getIsFetching } from '../reducers/index.jsx'
 import * as api from '../fakeDB.jsx'
 
+export const addTodo = (name) => (dispatch) => (
+  api.addTodo(name).then(response => dispatch({
+    type: 'ADD_TODO_SUCCESS',
+    response
+  }))
+);
+
+export const toggleTodo = (id) => ({
+  type: 'TOGGLE_TODO',
+  id
+});
+
 export const fetchTodos = (filter) => (dispatch, getState) => {
   if (getIsFetching(getState(), filter)) {
     return Promise.resolve();
