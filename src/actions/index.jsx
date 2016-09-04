@@ -1,17 +1,5 @@
-import { generate } from 'shortid'
 import { getIsFetching } from '../reducers/index.jsx'
 import * as api from '../fakeDB.jsx'
-
-export const addTodo = (name) => ({
-  type: 'ADD_TODO',
-  id: generate(),
-  name
-});
-
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id
-});
 
 export const fetchTodos = (filter) => (dispatch, getState) => {
   if (getIsFetching(getState(), filter)) {

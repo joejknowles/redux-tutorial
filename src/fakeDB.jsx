@@ -1,3 +1,5 @@
+import { generate } from 'shortid'
+
 const fakeData = {
   todos: [
     {
@@ -52,4 +54,22 @@ export const fetchTodos = (filter) => {
           return fakeData.todos;
       }
     });
+};
+
+export const addTodo = (name) => {
+  delay(500).then(() => {
+    const todo = {
+      id: generate(),
+      name,
+      completed: false
+    };
+    fakeData.push(todo);
+    return todo;
+  });
+};
+
+export const toggleTodo = (id) => {
+  const todo = fakeDB.todos.find(t => t.id === id);
+  todo.completed = !todo.completed;
+  return todo;
 };
